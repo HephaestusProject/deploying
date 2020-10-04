@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: monthly-deeplearning-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: monthly-deeplearning-ingress
+    networking.gke.io/managed-certificates: monthly-deeplearning-certificate
+spec:
+  backend:
+    serviceName: charlm-service
+    servicePort: 8000
+  rules:
+  - host: charlm.monthly-deeplearning.io
+    http:
+      paths:
+      - path: /*
+        backend:
+          serviceName: charlm-service
+          servicePort: 8000
